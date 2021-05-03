@@ -1,0 +1,17 @@
+<h1>РЕЗУЛЬТАТЫ ПОИСКА</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Адрес</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#list result}}
+        <td scope="row">{{num}}</td>
+        <td>{{name}}</td>
+        <td>{{address}}</td>
+        {{/list}}
+    </tbody>
+</table>
