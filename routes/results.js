@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const hbs = require('hbs')
+const pool = require('../db/db');
 
 let result = [];
+
+
 
 hbs.registerHelper('list', (ctx, opt) => {
     var ret = "";
@@ -18,22 +21,17 @@ hbs.registerHelper('list', (ctx, opt) => {
 })
 
 /* GET results listing. */
-router.post('/', function(req, res, next) {
-   console.log(Object.values(req.body));
-   result = [
-    {num: 1,name: 'Больница 1', address: "Брест"},
-    {num: 2,name: 'Больница 2', address: "Несвиж"},
-    {num: 3,name: 'Больница 3', address: "Минск"}
- ]
- if (Object.values(req.body).every(i => i === '')) {
-     result = [];
- }
-   next();
-
-}, function (req, res) {
-
-    res.render('results', {result})
-
-});
+router.post('/', function(req, response, next) {
+    console.log(req.body)
+ const name = req.body.name || ''
+    pool.execute(`select * from centers where name like '%${name}%';`)
+    .then(res => {
+        result = res[0];
+        response.render('results', {result})
+    })
+    .catch(err => {
+        console.log(err.message)
+    })
+})
 
 module.exports = router;
