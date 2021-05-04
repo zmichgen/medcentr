@@ -19,12 +19,15 @@ hbs.registerHelper('list', (ctx, opt) => {
 
 /* GET results listing. */
 router.post('/', function(req, res, next) {
-   console.log(req.body);
+   console.log(Object.values(req.body));
    result = [
     {num: 1,name: 'Больница 1', address: "Брест"},
     {num: 2,name: 'Больница 2', address: "Несвиж"},
     {num: 3,name: 'Больница 3', address: "Минск"}
  ]
+ if (Object.values(req.body).every(i => i === '')) {
+     result = [];
+ }
    next();
 
 }, function (req, res) {
