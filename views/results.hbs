@@ -4,14 +4,24 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Наименование</th>
+            <th scope="col">Вид услуг</th>
             <th scope="col">Адрес</th>
         </tr>
     </thead>
     <tbody>
-        {{#list result}}
-        <td scope="row">{{num}}</td>
-        <td>{{name}}</td>
-        <td>{{address}}</td>
-        {{/list}}
+        {{#if result.length}}
+        {{#each result}}
+        <tr>
+            <td scope="row">{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.service_type}}</td>
+            <td>{{this.address}}</td>
+        </tr>
+        {{/each}}
+        {{else}}
+        <tr>
+            <td colspan="4" align="center">По вашему запросу ничего не найдено...</td>
+        </tr>
+        {{/if}}
     </tbody>
 </table>

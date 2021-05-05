@@ -1,32 +1,46 @@
 var express = require('express');
 var router = express.Router();
-const hbs = require('hbs')
 const pool = require('../db/db');
 
 let result = [];
 
+/**
+ * функция создающая SQL запрос в зависимости от данных, пришедших из формы
+ * @param {*} data - объект поля которого содержат данные из инпутов формы (поле name в инпуте)
+ * @returns SQL запрос
+ */
+function createSQL(data) {
 
-
-hbs.registerHelper('list', (ctx, opt) => {
-    var ret = "";
-
-    for(var i=0, j=ctx.length; i<j; i++) {
-      ret = ret + "<tr>" + opt.fn(ctx[i]) + "</tr>";
+    const baseQuery = `select centers.id, centers.name, centers.address, service_types.name as service_type from centers
+    join service_types on centers.service_type_id = service_types.id`;
+    let  where = '';
+    // вид услуг
+    const {service_type, name} = data;
+    if (name) {
+        where = !where ? `where centers.name like '%${name}%'` : `${where} AND centers.name like '%${name}%'`
     }
-    if (!ctx.length) {
-        ret = '<tr>' + '<td colspan="3" align="center">По вашему запросу ничего не найдено...</td>' + '</tr>'
+    if (service_type) {
+        // если есть вид услуг - выбираем только с тем видом, который указан
+        where = !where ? `where centers.service_type_id = ${service_type}` : `${where} AND centers.service_type_id = ${service_type}`
     }
+    // возврат всех значений из БД
+    const result = `select centers.id, centers.name, centers.address, service_types.name as service_type from centers
+    join service_types on centers.service_type_id = service_types.id ${where};`
+    return result;
+}
 
-    return ret;
-})
 
 /* GET results listing. */
 router.post('/', function(req, response, next) {
-    console.log(req.body)
- const name = req.body.name || ''
-    pool.execute(`select * from centers where name like '%${name}%';`)
+
+    // получаем тело запроса (данные из формы)
+   const sql = createSQL(req.body);
+   // выполняем SQL запрос
+   pool.execute(sql)
     .then(res => {
+        // получаем данные из БД
         result = res[0];
+        // рендерим страницу results.html с данными из БД и отправляем в браузер
         response.render('results', {result})
     })
     .catch(err => {
