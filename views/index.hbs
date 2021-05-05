@@ -3,8 +3,13 @@
 
 <form action="/results/" method="POST">
     <div class="mb-3">
-        <label for="name" class="form-label">Наименование</label>
-        <input type="text" class="form-control" id="name" name="name">
+        <label for="service" class="form-label">Наименование</label>
+        <select class="form-select" name="service">
+            <option selected></option>
+            {{#each services}}
+            <option value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
     </div>
     <div class="mb-3">
         <label for="doctor" class="form-label">Врач</label>
@@ -12,7 +17,7 @@
     </div>
     <div class="mb-3">
         <label for="service_type" class="form-label">Вид услуг</label>
-        <select class="form-select" aria-label="Default select example" name="service_type">
+        <select class="form-select" name="service_type">
             <option selected></option>
             {{#each service_types}}
             <option value={{this.id}}>{{this.name}}</option>

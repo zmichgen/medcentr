@@ -1,11 +1,24 @@
 drop database if exists medicinfo;
 create database if not exists medicinfo;
+use medicinfo;
 -- Услуги
 CREATE TABLE services(
   id int NOT NULL primary key AUTO_INCREMENT comment 'primary key',
   name varchar(255) comment 'наименование услуги'
 ) default charset utf8 comment '';
-use medicinfo;
+insert into
+  services(name)
+values
+  ('Лечение зубов'),
+  ('Услуги терапевта'),
+  ('Услуги психиатра'),
+  ('Услуги хирурга'),
+  ('Услуги невропатолога'),
+  ('Услуги лора'),
+  ('Услуги окулиста'),
+  ('Педиатрия'),
+  ('Зубное протезирование');
+
 -- Вид услуг
 CREATE TABLE service_types(
   id int NOT NULL primary key AUTO_INCREMENT comment 'primary key',

@@ -24,8 +24,7 @@ function createSQL(data) {
         where = !where ? `where centers.service_type_id = ${service_type}` : `${where} AND centers.service_type_id = ${service_type}`
     }
     // возврат всех значений из БД
-    const result = `select centers.id, centers.name, centers.address, service_types.name as service_type from centers
-    join service_types on centers.service_type_id = service_types.id ${where};`
+    const result = `${baseQuery} ${where};`
     return result;
 }
 
