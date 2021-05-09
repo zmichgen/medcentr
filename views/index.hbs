@@ -5,6 +5,7 @@
     <div class="mb-3">
         <label for="service" class="form-label">Наименование</label>
         <select class="form-select" name="service_id">
+            <option selected>Все услуги</option>
             {{#each services}}
                 <option value={{this.id}}>{{this.name}}</option>
             {{/each}}
@@ -17,7 +18,7 @@
     <div class="mb-3">
         <label for="service_type" class="form-label">Вид услуг</label>
         <select class="form-select" name="service_type">
-            <option selected></option>
+            <option selected>Любой вид услуг</option>
             {{#each service_types}}
                 <option value={{this.id}}>{{this.name}}</option>
             {{/each}}

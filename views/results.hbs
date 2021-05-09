@@ -6,6 +6,7 @@
             <th scope="col">Наименование</th>
             <th scope="col">Вид услуг</th>
             <th scope="col">Адрес</th>
+            <th scope="col">Список услуг</th>
         </tr>
     </thead>
     <tbody>
@@ -18,8 +19,8 @@
                     <td>{{this.address}}</td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Список услуг
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 {{#each this.serviceList}}
