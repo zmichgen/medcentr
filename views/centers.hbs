@@ -1,0 +1,39 @@
+{{>adminmenu}}
+<h1>Медцентры</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Адрес</th>
+            <th scope="col">Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if centers.length}}
+            {{#each centers}}
+                <tr>
+                    <td scope="row">{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.type}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.address}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="centers/edit/{{this.id}}">Редактировать</a>
+                        <form action="centers/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{this.id}}" />
+                            <input class="btn btn-danger" type="submit" value="Удалить" />
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td colspan="4" align="center">По вашему запросу ничего не найдено...</td>
+            </tr>
+        {{/if}}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="centers/add">Добавить</a>

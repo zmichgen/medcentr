@@ -26,14 +26,19 @@ function createSQL(data) {
             : `${where} AND centers.service_type_id = ${service_type}`;
     }
     // возврат всех значений из БД
-    const result = `select centers.*, group_concat(services1.name) as serviceList, service_types.name as serviceType from centers
-    join service_types on centers.service_type_id = service_types.id
-    join centers_services centers_services1 on centers.id = centers_services1.center_id
-    join services services1 on services1.id = centers_services1.service_id
-    join centers_services centers_services2 on centers_services2.center_id = centers.id
+    const result = `select centers.*,
+    group_concat(services1.name) as serviceList,
+    service_types.name as serviceType,
+    group_concat(doctors.name,' ',doctors.surname, ': ', (select name from specializations where id = doctors.spec_id )) as doctorsList from centers
+    join doctors on doctors.center_id = centers.id
+        join service_types on centers.service_type_id = service_types.id
+        join centers_services centers_services1 on centers.id = centers_services1.center_id
+        join services services1 on services1.id = centers_services1.service_id
+        join centers_services centers_services2 on centers_services2.center_id = centers.id
     join services services2 on services2.id = centers_services2.service_id ${searchServices}
     ${where}
-    group by centers.id;`;
+    group by centers.id
+    order by centers.service_type_id desc;`;
     return result;
 }
 
@@ -45,10 +50,12 @@ router.post('/', function (req, response, next) {
     // выполняем SQL запрос
     pool.execute(sql)
         .then((res) => {
+            console.log(res[0]);
             // получаем данные из БД
             result = res[0].map((i) => ({
                 ...i,
                 serviceList: Array.from(new Set(i.serviceList.split(','))), // массив уникальных записей из поля serviceList
+                doctorsList: Array.from(new Set(i.doctorsList.split(','))), // массив уникальных записей из пля doctorslist
             }));
             // console.log(result); // результат sql запроса и его преобразования
             // рендерим страницу results.html с данными из БД и отправляем в браузер

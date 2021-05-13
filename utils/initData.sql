@@ -19,7 +19,21 @@ values
   ('Педиатрия'),
   ('Зубное протезирование');
 
--- Вид услуг
+  -- Специальности
+  CREATE TABLE specializations(
+    id int PRIMARY KEY AUTO_INCREMENT comment 'primary key',
+    name VARCHAR(255) comment 'наименование специальности'
+  ) default charset utf8 comment '';
+
+  insert into specializations(name)
+  values
+  ('Теравпевт'),
+    ('Хирург'),
+      ('Зубной теравпевт'),
+        ('Зубной хирург'),
+          ('Окулист');
+
+ -- Вид услуг
 create TABLE service_types(
   id int NOT NULL primary key AUTO_INCREMENT comment 'primary key',
   name varchar(255) comment 'наименование вида услуг'
@@ -65,3 +79,24 @@ values
 (4,4),(4,6),(4,7),
 (5,2),(5,3),(5,6),
 (6,7);
+
+ -- Врачи
+  CREATE TABLE doctors(
+    id int PRIMARY KEY AUTO_INCREMENT comment 'primary key',
+    name VARCHAR(255) comment 'Имя',
+    surname VARCHAR(255) comment 'Фамилия',
+    spec_id int comment 'id специальности из списка специальности',
+    center_id int comment 'id мед центра в котором работает',
+    FOREIGN KEY (spec_id) REFERENCES specializations(id),
+    foreign key (center_id) references centers(id)
+  ) default charset utf8 comment '';
+
+  INSERT INTO doctors(
+    name, surname, spec_id, center_id
+  )
+  values
+  ('Иван','Иванов', 1, 1),
+   ('Петр','Иванов', 2, 2),
+    ('Иван','Петров', 3, 3),
+     ('Петр','Петров', 4, 4),
+      ('Иван','Сидоров', 5, 5);

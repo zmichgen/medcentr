@@ -1,0 +1,78 @@
+<h1>Медцентр</h1>
+
+<form action="/admin/centers" method="POST" id="doctor">
+    <input type="hidden" name="id" value="{{center.id}}" />
+    <div class="mb-3">
+        <label for="name" class="form-label">Наименование</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{center.name}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label">Адрес</label>
+        <input type="text" class="form-control" id="address" name="address" value="{{center.address}}">
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Телефон</label>
+        <input type="text" class="form-control" id="phone" name="phone" value="{{center.phone}}">
+    </div>
+    <div class="mb-3">
+        <label for="id_age_category" class="form-label">Категория</label>
+        <select class="form-select" name="id_age_category" form="center">
+            {{#each cat}}
+                <option {{selected}} value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="id_type" class="form-label">Тип</label>
+        <select class="form-select" name="id_type" form="center">
+            {{#each type}}
+                <option {{selected}} value={{this.id}}>{{this.type}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div>
+        <label for="id_type" class="form-label">Услуги</label>
+        <div style="padding: 10px; border: 1px solid gray;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Наименование услуги</th>
+                        <th scope="col">Врач</th>
+                        <th scope="col">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if services.length}}
+                        {{#each services}}
+                            <tr>
+                                <td scope="row">{{this.id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.doctor}}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="services/edit/{{this.id}}">Редактировать</a>
+                                    <form action="services/delete" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="{{this.id}}" />
+                                        <input class="btn btn-danger" type="submit" value="Удалить" />
+                                    </form>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    {{else}}
+                        <tr>
+                            <td colspan="4" align="center">Список услуг пустой...</td>
+                        </tr>
+                    {{/if}}
+                </tbody>
+            </table>
+            <div style="padding: 10px;">
+                <a class="btn btn-primary" href="services/add">Добавить</a>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 20px">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-primary" href="/admin/centers">Отменить</a>
+    </div>
+</form>

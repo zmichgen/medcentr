@@ -1,0 +1,37 @@
+{{>adminmenu}}
+<h1>Врачи</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">пол</th>
+            <th scope="col">специальность</th>
+            <th scope="col">действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if doctors.length}}
+            {{#each doctors}}
+                <tr>
+                    <td scope="row">{{this.id}}</td>
+                    <td>{{this.full_name}}</td>
+                    <td>{{this.gender}}</td>
+                    <td>{{this.spec}}</td>
+                    <td>
+                        <a class="btn btn-primary" href="doctors/edit/{{this.id}}">Редактировать</a>
+                        <form action="doctors/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{this.id}}" />
+                            <input class="btn btn-danger" type="submit" value="Удалить" />
+                        </form>
+                    </td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td colspan="4" align="center">По вашему запросу ничего не найдено...</td>
+            </tr>
+        {{/if}}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="doctors/add">Добавить</a>

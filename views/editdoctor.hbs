@@ -1,0 +1,29 @@
+<h1>Редактирование записи</h1>
+<h2>Врач</h2>
+
+<form action="/admin/doctors" method="POST" id="doctor">
+    <input type="hidden" name="id" value="{{doctor.id}}" />
+    <div class="mb-3">
+        <label for="full_name" class="form-label">ФИО</label>
+        <input type="text" class="form-control" id="name" name="full_name" value="{{doctor.full_name}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="id_specialization" class="form-label">Специальность</label>
+        <select class="form-select" name="id_specialization" form="doctor">
+            {{#each spec}}
+                <option {{selected}} value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="id_gender" class="form-label">Пол</label>
+        <select class="form-select" name="id_gender" form="doctor">
+            {{#each gender}}
+                <option {{selected}} value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a class="btn btn-primary" href="/admin/doctors">Отменить</a>
+</form>
