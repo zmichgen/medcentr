@@ -1,0 +1,61 @@
+<h1>Центр: {{center.name}}</h1>
+<h2>Услуга</h2>
+<form action="/admin/centers/edit" method="POST" id="service">
+    <input form="service" type="hidden" name="center_id" value="{{center.id}}" />
+    <input form="service" type="hidden" name="service_in_center_id" value="{{service_in_center.id}}" />
+    <!-- <div class="mb-3">
+        <label for="name" class="form-label">Наименование</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{center.name}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label">Адрес</label>
+        <input type="text" class="form-control" id="address" name="address" value="{{center.address}}">
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Телефон</label>
+        <input type="text" class="form-control" id="phone" name="phone" value="{{center.phone}}">
+    </div> -->
+    <div class="mb-3">
+        <label for="service_id" class="form-label">Наименование</label>
+        <select class="form-select" name="service_id" form="service">
+            {{#each services}}
+                <option {{selected}} value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="type_id" class="form-label">Тип услуги</label>
+        <select class="form-select" name="type_id" form="service">
+            {{#each types}}
+                <option {{selected}} value={{this.id}}>{{this.type}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Стоимость</label>
+        <input step="any" type="number" form="service" class="form-control" id="price" name="price" value="0">
+    </div>
+
+    <div class="mb-3">
+        <label for="doctor_id" class="form-label">Врач</label>
+        <select class="form-select" name="doctor_id" form="service">
+            {{#each doctors}}
+                <option {{selected}} value={{this.id}}>{{this.full_name}} - {{this.specialization}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <!-- <div class="mb-3">
+        <label for="id_type" class="form-label">Тип</label>
+        <select class="form-select" name="id_type" form="center">
+            {{#each type}}
+                <option {{selected}} value={{this.id}}>{{this.type}}</option>
+            {{/each}}
+        </select>
+    </div> -->
+
+    <div style="padding: 20px">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a class="btn btn-primary" href="/admin/centers">Отменить</a>
+    </div>
+</form>

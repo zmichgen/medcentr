@@ -5,6 +5,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Наименование</th>
+            <th scope="col">Направление</th>
             <th scope="col">Действия</th>
         </tr>
     </thead>
@@ -14,9 +15,11 @@
                 <tr>
                     <td scope="row">{{this.id}}</td>
                     <td>{{this.name}}</td>
+                    <td>{{this.direction}}</td>
                     <td>
-                        <a class="btn btn-primary" href="cervices/edit/{{this.id}}">Редактировать</a>
-                        <form action="services/delete/{{this.id}}" method="POST" style="display:inline;">
+                        <a class="btn btn-primary" href="services/edit/{{this.id}}">Редактировать</a>
+                        <form action="services/delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{this.id}}" />
                             <input class="btn btn-danger" type="submit" value="Удалить" />
                         </form>
                     </td>

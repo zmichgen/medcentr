@@ -1,0 +1,20 @@
+<h1>Услуга</h1>
+<form action="/admin/services" method="POST" id="service">
+    <input type="hidden" name="id" value="{{service.id}}" />
+    <div class="mb-3">
+        <label for="name" class="form-label">Наименование услуги</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{service.name}}">
+    </div>
+
+    <div class="mb-3">
+        <label for="direction_id" class="form-label">Направление</label>
+        <select class="form-select" name="direction_id" form="service">
+            {{#each directions}}
+                <option {{selected}} value={{this.id}}>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a class="btn btn-primary" href="/admin/services">Отменить</a>
+</form>

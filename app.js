@@ -9,6 +9,10 @@ var indexRouter = require('./routes/index');
 var resultsRouter = require('./routes/results');
 const adminRouter = require('./routes/admin');
 
+hbs.registerHelper('inc', function (value, options) {
+    return parseInt(value) + 1;
+});
+
 const livereload = require('livereload');
 
 const liveReloadServer = livereload.createServer();
