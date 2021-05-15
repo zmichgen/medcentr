@@ -44,11 +44,11 @@ const doctors = {
 
     editDoctor: async (req, res, next) => {
         const json = await getDoctor(req.params.id);
-        res.render('editdoctor', json);
+        res.render('edit_doctor', json);
     },
     addDoctor: async (req, res, next) => {
         const json = await getDoctor();
-        res.render('editdoctor', json);
+        res.render('edit_doctor', json);
     },
 
     deleteDoctor: async (req, res, next) => {

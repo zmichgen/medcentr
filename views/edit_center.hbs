@@ -1,3 +1,4 @@
+{{>adminmenu}}
 <h1>Медцентр</h1>
 
 <form action="/admin/centers" method="POST" id="center">
@@ -57,9 +58,9 @@
                             <td>{{this.name}}</td>
                             <td>{{this.doctor}}</td>
                             <td scope="row">
-                                <a class="btn btn-primary" href="services/edit/{{this.id}}">Редактировать</a>
+                                <a class="btn btn-primary" href="/admin/centers/edit_service/{{this.id}}/{{this.id_entity}}">Редактировать</a>
                                 <form action="/admin/centers/delete_service" method="POST" style="display:inline;">
-                                    <input type="hidden" name="id" value="{{this.serv_id}}" />
+                                    <input type="hidden" name="id" value="{{this.id}}" />
                                     <input type="hidden" name="center_id" value="{{this.id_entity}}" />
                                     <input class="btn btn-danger" type="submit" value="Удалить" />
                                 </form>

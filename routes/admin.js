@@ -10,7 +10,10 @@ router.get('/centers/edit/:id', centers.editCenter.bind(this)); // открыт�
 router.get('/centers/add', centers.addCenter.bind(this)); // открыть карточку на создание медцентра
 router.post('/centers/delete', centers.deleteCenter.bind(this)); // удалить медцентр
 
-router.get('/centers/edit_service/:id', centers.editService.bind(this)); // редактирование услуги в центре
+router.get(
+    '/centers/edit_service/:id/:center_id',
+    centers.editService.bind(this),
+); // редактирование услуги в центре
 router.get('/centers/add_service/:id', centers.addService.bind(this)); // создание услуги в центре
 router.post('/centers/edit', centers.updateServiceInCenter.bind(this)); // сохранение данных об услуге в центре
 router.post(

@@ -36,11 +36,11 @@ const services = {
     editService: async (req, res, next) => {
         const json = await getService(req.params.id);
         console.log(json);
-        res.render('editservice', json);
+        res.render('edit_service', json);
     },
     addService: async (req, res, next) => {
         const json = await getService();
-        res.render('editservice', json);
+        res.render('edit_service', json);
     },
 
     deleteService: async (req, res, next) => {
