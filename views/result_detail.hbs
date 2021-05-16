@@ -1,0 +1,59 @@
+{{>menu}}
+<h1>{{center.name}}</h1>
+<h2>Детали</h2>
+
+<div class="mb-3">
+    <label for="address" class="form-label">Адрес</label>
+    <input disabled type="text" class="form-control" id="address" name="address" value="{{center.address}}">
+</div>
+<div class="mb-3">
+    <label for="phone" class="form-label">Телефон</label>
+    <input disabled type="text" class="form-control" id="phone" name="phone" value="{{center.phone}}">
+</div>
+<div class="mb-3">
+    <label for="type" class="form-label">Тип</label>
+    <input disabled type="text" class="form-control" id="phone" name="type" value="{{center.type}}">
+</div>
+<div class="mb-3">
+    <label for="category" class="form-label">Возрастная категория</label>
+    <input disabled type="text" class="form-control" id="category" name="category" value="{{center.category}}">
+</div>
+<div>
+    <label class="form-label">Услуги, оказываемые медцентром</label>
+    <div style="padding: 10px; border: 1px solid gray;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Наименование услуги</th>
+                    <th scope="col">Врач</th>
+                    <th scope="col">Специальность</th>
+                    <th scope="col">Вид</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if services.length}}
+                    {{#each services}}
+                        <tr>
+                            <td>{{inc @index}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.doctor}}</td>
+                            <td>{{this.specialization}}</td>
+                            <td>{{this.type}}</td>
+                            <td>{{this.price}}</td>
+                        </tr>
+                    {{/each}}
+                {{else}}
+                    <tr>
+                        <td colspan="4" align="center">Список услуг пустой...
+                        </td>
+                    </tr>
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div style="padding: 20px 0">
+    <a class="btn btn-primary" href="/results">Назад</a>
+</div>

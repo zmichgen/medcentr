@@ -128,6 +128,31 @@ join type_entity te on te.id = he.id_type`);
         res.render('edit_center', json);
     },
 
+    updateCenter: async (req, res, next) => {
+        console.log(req.body);
+        const { id, name, address, phone, id_age_category, id_type } = req.body;
+        if (id) {
+            try {
+                await pool.execute(
+                    'update health_entities set name=?, phone=?, address=?, id_age_category=?, id_type=? where id=?',
+                    [name, phone, address, id_age_category, id_type, id],
+                );
+            } catch (err) {
+                console.error(err.message);
+            }
+        } else {
+            try {
+                await pool.execute(
+                    'insert into health_entities (name, phone, address, id_age_category, id_type) values (?,?,?,?,?)',
+                    [name, phone, address, id_age_category, id_type],
+                );
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
+        res.redirect('/admin/centers');
+    },
+
     // удаление центра
     deleteCenter: async (req, res, next) => {
         await pool.execute(
@@ -144,7 +169,6 @@ join type_entity te on te.id = he.id_type`);
         const service_id = req.params.id;
         const center_id = req.params.center_id;
         const json = await getService(service_id, center_id);
-        console.log(json.service);
         res.render('edit_centers_service', json);
     },
 
@@ -160,18 +184,22 @@ join type_entity te on te.id = he.id_type`);
         const { service_id, doctor_id, center_id, type_id, price, id } =
             req.body;
         if (id) {
-            await pool.execute(`update services_by_entities
-            set id_entity=${center_id},
-            id_service=${service_id},
-            price=${price},
-            id_type_service=${type_id},
-            id_doctor=${doctor_id}
-            where id=${id}
-            `);
+            await pool.execute(
+                `update services_by_entities
+            set id_entity=?,
+            id_service=?,
+            price=?,
+            id_type_service=?,
+            id_doctor=?
+            where id=?
+            `,
+                [center_id, service_id, price || 0, type_id, doctor_id, id],
+            );
         } else {
             await pool.execute(
                 `insert into services_by_entities (id_entity, id_service, price, id_type_service, id_doctor)
-            values (${center_id}, ${service_id}, ${price}, ${type_id}, ${doctor_id})`,
+            values (?,?,?,?,?)`,
+                [center_id, service_id, price || 0, type_id, doctor_id],
             );
         }
 
